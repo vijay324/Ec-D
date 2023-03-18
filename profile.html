@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -588,7 +589,7 @@
               </a>
               <ul x-collapse x-show="expanded">
                 <li>
-                  <a x-data="navLink" href="#"
+                  <a x-data="navLink" href="feedback.html"
                     :class="isActive ? 'font-medium text-primary dark:text-accent-light' : 'text-slate-600 hover:text-slate-900 dark:text-navy-200 dark:hover:text-navy-50'"
                     class="flex items-center justify-between p-2 text-xs+ tracking-wide outline-none transition-[color,padding-left] duration-300 ease-in-out hover:pl-4">
                     <div class="flex items-center space-x-2">
@@ -858,11 +859,75 @@
             >
               Cancel
             </button>
-            <button
-              class="btn min-w-[7rem] rounded-full bg-primary font-medium text-white hover:bg-primary-focus focus:bg-primary-focus active:bg-primary-focus/90 dark:bg-accent dark:hover:bg-accent-focus dark:focus:bg-accent-focus dark:active:bg-accent/90"
-            >
-              Save Changes
-            </button>
+            <div x-data="{showModal:false}">
+              <button
+                @click="showModal = true"
+                class="btn min-w-[7rem] rounded-full bg-primary font-medium text-white hover:bg-primary-focus focus:bg-primary-focus active:bg-primary-focus/90 dark:bg-accent dark:hover:bg-accent-focus dark:focus:bg-accent-focus dark:active:bg-accent/90"
+              >
+                Save Changes
+              </button>
+              <template x-teleport="#x-teleport-target">
+                <div
+                  class="fixed inset-0 z-[100] flex flex-col items-center justify-center overflow-hidden px-4 py-6 sm:px-5"
+                  x-show="showModal"
+                  role="dialog"
+                  @keydown.window.escape="showModal = false"
+                >
+                  <div
+                    class="absolute inset-0 bg-slate-900/60 transition-opacity duration-300"
+                    @click="showModal = false"
+                    x-show="showModal"
+                    x-transition:enter="ease-out"
+                    x-transition:enter-start="opacity-0"
+                    x-transition:enter-end="opacity-100"
+                    x-transition:leave="ease-in"
+                    x-transition:leave-start="opacity-100"
+                    x-transition:leave-end="opacity-0"
+                  ></div>
+                  <div
+                    class="relative max-w-lg rounded-lg bg-white px-4 py-10 text-center transition-opacity duration-300 dark:bg-navy-700 sm:px-5"
+                    x-show="showModal"
+                    x-transition:enter="ease-out"
+                    x-transition:enter-start="opacity-0"
+                    x-transition:enter-end="opacity-100"
+                    x-transition:leave="ease-in"
+                    x-transition:leave-start="opacity-100"
+                    x-transition:leave-end="opacity-0"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      class="inline h-28 w-28 text-success"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+                      ></path>
+                    </svg>
+          
+                    <div class="mt-4">
+                      <h2 class="text-2xl text-slate-700 dark:text-navy-100">
+                        Successfully updated
+                      </h2>
+                      <p class="mt-2">
+                        your profile details successfully changed.
+                      </p>
+                      <button
+                        @click="showModal = false"
+                        class="btn mt-6 bg-success font-medium text-white hover:bg-success-focus focus:bg-success-focus active:bg-success-focus/90"
+                      >
+                        Close
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </template>
+            </div>
+            
           </div>
         </div>
         <div class="p-4 sm:p-5">
